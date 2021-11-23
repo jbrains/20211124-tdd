@@ -1,0 +1,2 @@
+rootProject.name = 'tdd-training-course'
+include('app')
