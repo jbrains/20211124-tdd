@@ -6,40 +6,36 @@ import org.junit.jupiter.api.Test;
 public class AddFractionsTest {
     @Test
     void zeroPlusZero() {
-        Fraction sum = new Fraction(0).plus(new Fraction(0));
-        Assertions.assertEquals(0, sum.intValue());
+        Assertions.assertEquals(new Fraction(0), new Fraction(0).plus(new Fraction(0)));
     }
 
     @Test
     void notZeroPlusZero() {
-        Fraction sum = new Fraction(7).plus(new Fraction(0));
-        Assertions.assertEquals(7, sum.intValue());
+        Assertions.assertEquals(new Fraction(7), new Fraction(7).plus(new Fraction(0)));
     }
 
     @Test
     void zeroPlusNotZero() {
-        Fraction sum = new Fraction(0).plus(new Fraction(12));
-        Assertions.assertEquals(12, sum.intValue());
+        Assertions.assertEquals(new Fraction(12), new Fraction(0).plus(new Fraction(12)));
     }
 
     @Test
     void notZeroPlusNotZero() {
-        Fraction sum = new Fraction(3).plus(new Fraction(6));
-        Assertions.assertEquals(9, sum.intValue());
+        Assertions.assertEquals(new Fraction(9), new Fraction(3).plus(new Fraction(6)));
     }
 
     @Test
     void sameDenominator() {
-        Fraction sum = new Fraction(1, 5).plus(new Fraction(2, 5));
-        Assertions.assertEquals(3, sum.getNumerator());
-        Assertions.assertEquals(5, sum.getDenominator());
+        Assertions.assertEquals(
+                new Fraction(3, 5),
+                new Fraction(1, 5).plus(new Fraction(2, 5)));
     }
 
     @Test
     void oneDenominatorIsAMultipleOfTheOther() {
-        Fraction sum = new Fraction(1, 4).plus(new Fraction(1, 8));
-        Assertions.assertEquals(3, sum.getNumerator());
-        Assertions.assertEquals(8, sum.getDenominator());
+        Assertions.assertEquals(
+                new Fraction(3, 8),
+                new Fraction(1, 4).plus(new Fraction(1, 8)));
     }
 
     private static class Fraction {
@@ -62,16 +58,20 @@ public class AddFractionsTest {
                 return new Fraction(3, 8);
         }
 
-        public int intValue() {
-            return numerator;
+        @Override
+        public boolean equals(Object other) {
+            if (other instanceof Fraction) {
+                Fraction that = (Fraction) other;
+                return this.numerator * that.denominator == this.denominator * that.numerator;
+            }
+            else {
+                return false;
+            }
         }
 
-        public int getNumerator() {
-            return numerator;
-        }
-
-        public int getDenominator() {
-            return denominator;
+        @Override
+        public int hashCode() {
+            return 0;
         }
     }
 }
