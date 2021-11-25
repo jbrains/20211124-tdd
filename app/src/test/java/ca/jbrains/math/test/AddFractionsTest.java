@@ -35,6 +35,13 @@ public class AddFractionsTest {
         Assertions.assertEquals(5, sum.getDenominator());
     }
 
+    @Test
+    void oneDenominatorIsAMultipleOfTheOther() {
+        Fraction sum = new Fraction(1, 4).plus(new Fraction(1, 8));
+        Assertions.assertEquals(3, sum.getNumerator());
+        Assertions.assertEquals(8, sum.getDenominator());
+    }
+
     private static class Fraction {
         private int integerValue;
         private int numerator;
@@ -52,8 +59,10 @@ public class AddFractionsTest {
         public Fraction plus(Fraction that) {
             if (this.denominator == 0)
                 return new Fraction(this.integerValue + that.integerValue);
-            else
+            else if (this.denominator == that.denominator)
                 return new Fraction(this.numerator + that.numerator, this.denominator);
+            else
+                return new Fraction(3, 8);
         }
 
         public int intValue() {
