@@ -52,6 +52,13 @@ public class AddFractionsTest {
                 new Fraction(2, 5).plus(new Fraction(3, 8)));
     }
 
+    @Test
+    void equalityWhenOneOfTheDenominatorsIsNegative() {
+        Assertions.assertEquals(
+                new Fraction(5, -8),
+                new Fraction(-5, 8));
+    }
+
     private static class Fraction {
         private int numerator;
         private int denominator;
