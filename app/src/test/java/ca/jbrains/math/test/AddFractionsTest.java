@@ -59,6 +59,13 @@ public class AddFractionsTest {
                 new Fraction(-5, 8));
     }
 
+    @Test
+    void integerPlusNonInteger() {
+        Assertions.assertEquals(
+                new Fraction(11, 4),
+                new Fraction(2).plus(new Fraction(3, 4)));
+    }
+
     private static class Fraction {
         private int numerator;
         private int denominator;
