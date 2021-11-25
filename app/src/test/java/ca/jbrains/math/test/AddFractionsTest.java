@@ -38,6 +38,13 @@ public class AddFractionsTest {
                 new Fraction(1, 4).plus(new Fraction(1, 8)));
     }
 
+    @Test
+    void denominatorsHaveAComonFactor() {
+        Assertions.assertEquals(
+                new Fraction(31, 36),
+                new Fraction(7, 12).plus(new Fraction(5, 18)));
+    }
+
     private static class Fraction {
         private int numerator;
         private int denominator;
@@ -55,7 +62,9 @@ public class AddFractionsTest {
             if (this.denominator == that.denominator)
                 return new Fraction(this.numerator + that.numerator, this.denominator);
             else
-                return new Fraction(3, 8);
+                return new Fraction(
+                        this.numerator * that.denominator + that.numerator * this.denominator,
+                        this.denominator * that.denominator);
         }
 
         @Override
@@ -63,8 +72,7 @@ public class AddFractionsTest {
             if (other instanceof Fraction) {
                 Fraction that = (Fraction) other;
                 return this.numerator * that.denominator == this.denominator * that.numerator;
-            }
-            else {
+            } else {
                 return false;
             }
         }
