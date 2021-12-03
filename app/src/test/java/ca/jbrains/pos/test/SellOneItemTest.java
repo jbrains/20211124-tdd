@@ -64,8 +64,8 @@ public class SellOneItemTest {
         }
 
         public void onBarcode(String barcode) {
-            // SMELL This path ignores the pricesByBarcode, so why is it here?!
             if ("".equals(barcode))
+                // SMELL This path ignores the pricesByBarcode, so why is it here?!
                 display.setText("Scanning error: empty barcode");
             else if (pricesByBarcode.containsKey(barcode))
                 display.setText(pricesByBarcode.get(barcode));
