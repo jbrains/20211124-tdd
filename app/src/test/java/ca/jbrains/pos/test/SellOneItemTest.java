@@ -10,7 +10,10 @@ public class SellOneItemTest {
     @Test
     void productFound() {
         Display display = new Display();
-        Sale sale = new Sale(display);
+        Sale sale = new Sale(display, new HashMap<>() {{
+            put("12345", "EUR 7.95");
+            put("23456", "EUR 12.50");
+        }});
 
         sale.onBarcode("12345");
 
@@ -20,7 +23,10 @@ public class SellOneItemTest {
     @Test
     void anotherProductFound() {
         Display display = new Display();
-        Sale sale = new Sale(display);
+        Sale sale = new Sale(display, new HashMap<>() {{
+            put("12345", "EUR 7.95");
+            put("23456", "EUR 12.50");
+        }});
 
         sale.onBarcode("23456");
 
@@ -30,7 +36,10 @@ public class SellOneItemTest {
     @Test
     void productNotFound() {
         Display display = new Display();
-        Sale sale = new Sale(display);
+        Sale sale = new Sale(display, new HashMap<>() {{
+            put("12345", "EUR 7.95");
+            put("23456", "EUR 12.50");
+        }});
 
         sale.onBarcode("99999");
 
@@ -40,7 +49,10 @@ public class SellOneItemTest {
     @Test
     void emptyBarcode() {
         Display display = new Display();
-        Sale sale = new Sale(display);
+        Sale sale = new Sale(display, new HashMap<>() {{
+            put("12345", "EUR 7.95");
+            put("23456", "EUR 12.50");
+        }});
 
         sale.onBarcode("");
 
@@ -48,21 +60,18 @@ public class SellOneItemTest {
     }
 
     private static class Sale {
+        private final Map<String, String> pricesByBarcode;
         private Display display;
 
-        private Sale(Display display) {
+        private Sale(Display display, Map<String, String> pricesByBarcode) {
             this.display = display;
+            this.pricesByBarcode = pricesByBarcode;
         }
 
         public void onBarcode(String barcode) {
             if ("".equals(barcode))
                 display.setText("Scanning error: empty barcode");
             else {
-                Map<String, String> pricesByBarcode = new HashMap<>() {{
-                    put("12345", "EUR 7.95");
-                    put("23456", "EUR 12.50");
-                }};
-
                 if (pricesByBarcode.containsKey(barcode))
                     display.setText(pricesByBarcode.get(barcode));
                 else
