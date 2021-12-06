@@ -67,10 +67,14 @@ public class SellOneItemTest {
             if ("".equals(barcode))
                 // SMELL This path ignores the pricesByBarcode, so why is it here?!
                 displayEmptyBarcodeMessage();
-            else if (pricesByBarcode.containsKey(barcode))
+            else if (hasBarcode(barcode))
                 displayPrice(findPrice(barcode));
             else
                 displayProductNotFoundMessage(barcode);
+        }
+
+        private boolean hasBarcode(String barcode) {
+            return pricesByBarcode.containsKey(barcode);
         }
 
         private void displayPrice(String price) {
