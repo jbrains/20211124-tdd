@@ -66,31 +66,19 @@ public class SellOneItemTest {
         public void onBarcode(String barcode) {
             if ("".equals(barcode))
                 // SMELL This path ignores the pricesByBarcode, so why is it here?!
-                displayEmptyBarcodeMessage();
+                display.displayEmptyBarcodeMessage();
             else if (hasBarcode(barcode))
-                displayPrice(findPrice(barcode));
+                display.displayPrice(findPrice(barcode));
             else
-                displayProductNotFoundMessage(barcode);
+                display.displayProductNotFoundMessage(barcode);
         }
 
         private boolean hasBarcode(String barcode) {
             return pricesByBarcode.containsKey(barcode);
         }
 
-        private void displayPrice(String price) {
-            display.setText(price);
-        }
-
         private String findPrice(String barcode) {
             return pricesByBarcode.get(barcode);
-        }
-
-        private void displayProductNotFoundMessage(String barcode) {
-            display.setText(String.format("Product not found: %s", barcode));
-        }
-
-        private void displayEmptyBarcodeMessage() {
-            display.setText("Scanning error: empty barcode");
         }
     }
 
@@ -103,6 +91,18 @@ public class SellOneItemTest {
 
         public void setText(String text) {
             this.text = text;
+        }
+
+        public void displayPrice(String price) {
+            setText(price);
+        }
+
+        public void displayProductNotFoundMessage(String barcode) {
+            setText(String.format("Product not found: %s", barcode));
+        }
+
+        public void displayEmptyBarcodeMessage() {
+            setText("Scanning error: empty barcode");
         }
     }
 }
