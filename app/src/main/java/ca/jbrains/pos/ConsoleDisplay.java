@@ -1,12 +1,12 @@
-package ca.jbrains.pos.test;
+package ca.jbrains.pos;
 
 import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.Writer;
 
 public class ConsoleDisplay implements Display {
     private PrintWriter out;
 
-    public ConsoleDisplay(StringWriter canvas) {
+    public ConsoleDisplay(Writer canvas) {
         this.out = new PrintWriter(canvas);
     }
 

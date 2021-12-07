@@ -1,5 +1,7 @@
 package ca.jbrains.pos.test;
 
+import ca.jbrains.pos.InMemoryCatalog;
+import ca.jbrains.pos.Price;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,15 +21,4 @@ public class FindPriceInMemoryCatalogTest {
         Assertions.assertEquals(null, catalog.findPrice("23456"));
     }
 
-    public static class InMemoryCatalog implements Catalog {
-        private Map<String, Price> pricesByBarcode;
-
-        public InMemoryCatalog(Map<String, Price> pricesByBarcode) {
-            this.pricesByBarcode = pricesByBarcode;
-        }
-
-        public Price findPrice(String barcode) {
-            return pricesByBarcode.get(barcode);
-        }
-    }
 }

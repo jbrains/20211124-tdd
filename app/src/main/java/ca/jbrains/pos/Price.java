@@ -1,4 +1,4 @@
-package ca.jbrains.pos.test;
+package ca.jbrains.pos;
 
 public record Price(int valueInCents) {
     public static Price cents(int valueInCents) {
