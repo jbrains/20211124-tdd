@@ -12,7 +12,7 @@ public class ConsoleDisplay implements Display {
 
     @Override
     public void displayPrice(Price price) {
-        new PrintWriter(canvas).println("EUR 7.95");
+        new PrintWriter(canvas).println(String.format("EUR %.2f", price.valueInCents() / 100.0d));
     }
 
     @Override
