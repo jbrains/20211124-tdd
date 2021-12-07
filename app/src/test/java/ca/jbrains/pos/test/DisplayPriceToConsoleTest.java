@@ -27,4 +27,18 @@ public class DisplayPriceToConsoleTest {
         new ConsoleDisplay(canvas).displayPrice(Price.cents(1870));
         Assertions.assertEquals("EUR 18.70\n", canvas.toString());
     }
+
+    @Test
+    void leadingZeroWhenThePriceIsLessThanOneEuro() {
+        StringWriter canvas = new StringWriter();
+        new ConsoleDisplay(canvas).displayPrice(Price.cents(59));
+        Assertions.assertEquals("EUR 0.59\n", canvas.toString());
+    }
+
+    @Test
+    void zeroEuro() {
+        StringWriter canvas = new StringWriter();
+        new ConsoleDisplay(canvas).displayPrice(Price.cents(0));
+        Assertions.assertEquals("EUR 0.00\n", canvas.toString());
+    }
 }
