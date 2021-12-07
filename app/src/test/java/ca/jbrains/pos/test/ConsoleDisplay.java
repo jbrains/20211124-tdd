@@ -14,7 +14,7 @@ public class ConsoleDisplay implements Display {
 
     @Override
     public void displayPrice(Price price) {
-        out.println(String.format("EUR %.2f", price.valueInCents() / 100.0d));
+        out.println(String.format("EUR %.2f", price.inEuro()));
     }
 
     @Override
