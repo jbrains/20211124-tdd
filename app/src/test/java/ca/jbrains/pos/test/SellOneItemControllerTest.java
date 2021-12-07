@@ -15,11 +15,18 @@ public class SellOneItemControllerTest {
 
         Mockito.verify(display).displayPrice(Price.cents(795));
     }
+
     public static class SellOneItemController {
+        private Catalog catalog;
+        private Display display;
+
         public SellOneItemController(Catalog catalog, Display display) {
+            this.catalog = catalog;
+            this.display = display;
         }
 
         public void onBarcode(String barcode) {
+            display.displayPrice(catalog.findPrice(barcode));
         }
     }
     public interface Catalog {
