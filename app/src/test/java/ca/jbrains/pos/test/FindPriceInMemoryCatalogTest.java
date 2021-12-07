@@ -13,11 +13,14 @@ public class FindPriceInMemoryCatalogTest {
     }
 
     public static class InMemoryCatalog {
-        public <String, Price> InMemoryCatalog(Map<String, Price> pricesByBarcode) {
+        private Map<String, Price> pricesByBarcode;
+
+        public InMemoryCatalog(Map<String, Price> pricesByBarcode) {
+            this.pricesByBarcode = pricesByBarcode;
         }
 
         public Price findPrice(String barcode) {
-            return Price.cents(1250);
+            return pricesByBarcode.get(barcode);
         }
     }
 }
