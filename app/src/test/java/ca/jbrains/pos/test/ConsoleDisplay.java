@@ -4,11 +4,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 public class ConsoleDisplay implements Display {
-    private StringWriter canvas;
     private PrintWriter out;
 
     public ConsoleDisplay(StringWriter canvas) {
-        this.canvas = canvas;
         this.out = new PrintWriter(canvas);
     }
 
