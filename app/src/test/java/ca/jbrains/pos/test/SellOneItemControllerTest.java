@@ -16,6 +16,18 @@ public class SellOneItemControllerTest {
         Mockito.verify(display).displayPrice(Price.cents(795));
     }
 
+    @Test
+    void productNotFound() {
+        Catalog catalog = Mockito.mock(Catalog.class);
+        Display display = Mockito.mock(Display.class);
+
+        Mockito.when(catalog.findPrice("99999")).thenReturn(null);
+
+        new SellOneItemController(catalog, display).onBarcode("99999");
+
+        Mockito.verify(display).displayProductNotFoundMessage("99999");
+    }
+
     public static class SellOneItemController {
         private Catalog catalog;
         private Display display;
@@ -26,17 +38,27 @@ public class SellOneItemControllerTest {
         }
 
         public void onBarcode(String barcode) {
-            display.displayPrice(catalog.findPrice(barcode));
+            Price price = catalog.findPrice(barcode);
+            if (price == null)
+                display.displayProductNotFoundMessage(barcode);
+            else
+                display.displayPrice(price);
         }
     }
+
     public interface Catalog {
         Price findPrice(String barcode);
     }
+
     public interface Display {
         void displayPrice(Price price);
+
+        void displayProductNotFoundMessage(String barcodeNotFound);
     }
 
     public record Price(int valueInCents) {
-        public static Price cents(int valueInCents) { return new Price(valueInCents); }
+        public static Price cents(int valueInCents) {
+            return new Price(valueInCents);
+        }
     }
 }
